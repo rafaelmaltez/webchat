@@ -6,25 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WebChat</title>
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>Webchat</h1>
+    <h1 class="title">Welcome to the Amazing Webchat!</h1>
   </header>
   <div class="web-chat">
     <section class="nickname-section">
       <input type="text" placeholder="Insira seu nickname" name="" id="">
-      <button class="btn">Salvar</button>
+      <button class="btn save-button">Salvar</button>
     </section>
     <section class="chat-section">
-      <div></div>
+      <h3 class="title">Histórico de mensagens</h3>
     </section>
-    <section class="active-members-section"></section>
+    <section class="active-members-section">
+      <h3 class ="title">Membros online agora:</h3>
+    </section>
     <section class="send-message-section">
       <textarea class="message-box" placeholder="Digite uma nova mensagem aqui" data-testid="message-box" cols="90" rows="10"></textarea>
-      <button class="btn" data-testid="send-button">Enviar mensagem</button>
+      <button class="btn send-button" data-testid="send-button">Enviar mensagem</button>
     </section>
   </div>
 </body>
 <script src="/socket.io/socket.io.js"></script>
+<script src="/scripts/sockets.js"></script>
 </html>
