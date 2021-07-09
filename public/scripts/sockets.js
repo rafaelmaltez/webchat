@@ -1,4 +1,4 @@
-const socket = io();
+const socket = window.io();
 let nickname = '';
 
 const sendButton = document.querySelector('.send-button');

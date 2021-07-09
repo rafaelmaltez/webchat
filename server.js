@@ -17,12 +17,10 @@ io.on('connection', (socket) => {
   const randomNickName = randomstring.generate(16);
   socket.emit('nickname', randomNickName);
   socket.on('message', (message) => {
-    console.log('Objeto de mensagem que chega no back: ', message);
     const date = moment();
-    console.log(date);
-    const formattedMessage = `${date.date()}/${date.month()}/${date.year()}
-    ${date.hour()}:${date.minutes()}:${date.seconds()}
-    ${message.nickname} ${message.chatMessage}`;
+    const DDMMYYY = `${date.date()}/${date.month()}/${date.year()}`;
+    const HHMMSS = `${date.hour()}:${date.minutes()}:${date.seconds()}`;
+    const formattedMessage = `${DDMMYYY} ${HHMMSS} ${message.nickname} ${message.chatMessage}`;
     io.emit('message', formattedMessage);
   });
 });
