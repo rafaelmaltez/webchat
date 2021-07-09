@@ -1,4 +1,5 @@
 const socket = io();
+let nickname = '';
 
 const sendButton = document.querySelector('.send-button');
 sendButton.addEventListener('click', () => {
@@ -7,10 +8,14 @@ sendButton.addEventListener('click', () => {
   const chatMessage = messageBox.value;
   const message = {
     chatMessage,
-    nickname: 'rafael', // implementar random aqui
+    nickname, // implementar random aqui
   };
   socket.emit('message', message);
   messageBox.value = '';
+});
+
+socket.on('nickname', (randomNickname) => {
+  nickname = randomNickname;
 });
 
 socket.on('message', (message) => {

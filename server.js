@@ -1,9 +1,10 @@
 const express = require('express');
+const randomstring = require('randomstring');
+const moment = require('moment');
 
 const app = express();
 const http = require('http').createServer(app);
 const cors = require('cors');
-const moment = require('moment');
 
 const io = require('socket.io')(http, {
   cors: {
@@ -13,14 +14,15 @@ const io = require('socket.io')(http, {
 });
 
 io.on('connection', (socket) => {
-  console.log(`${socket.id} entrou na sala`);
-  // socket.user = 'rafael';
-  // console.log('user: ', socket.user);
+  const randomNickName = randomstring.generate(16);
+  socket.emit('nickname', randomNickName);
   socket.on('message', (message) => {
     console.log('Objeto de mensagem que chega no back: ', message);
-    const date = new Date();
+    const date = moment();
     console.log(date);
-    const formattedMessage = `${date} ${message.nickname} ${message.chatMessage}`;
+    const formattedMessage = `${date.date()}/${date.month()}/${date.year()}
+    ${date.hour()}:${date.minutes()}:${date.seconds()}
+    ${message.nickname} ${message.chatMessage}`;
     io.emit('message', formattedMessage);
   });
 });
