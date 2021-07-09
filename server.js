@@ -19,10 +19,8 @@ io.on('connection', (socket) => {
   const randomNickName = randomstring.generate(16);
   socket.emit('nickname', randomNickName);
   socket.on('message', (message) => {
-    const date = moment().format('L');
+    const date = moment().format('L').replace(/\//g, '-');
     const time = moment().format('LTS');
-    // const DDMMYYY = `${date.date()}/${date.month()}/${date.year()}`;
-    // const HHMMSS = `${date.hour()}:${date.minutes()}:${date.seconds()}`;
     const formattedMessage = `${date} ${time} ${message.nickname} ${message.chatMessage}`;
     io.emit('message', formattedMessage);
   });

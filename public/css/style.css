@@ -5,12 +5,15 @@ html , body {
 }
 
 .web-chat {
+  border: 1px solid rgb(216, 210, 210);
   display: grid;
   grid-template-areas: 'input chat chat'
     'members chat chat'
     'members chat chat'
     'members chat chat'
     'message message message';
+
+  /* grid-template-columns: 30% 35% 35%; */
   grid-template-rows: 10% 25% 25% 25% 15%;
   height: 80vh;
   margin: 30px auto;
@@ -19,7 +22,6 @@ html , body {
 
 .nickname-section {
   align-items: center;
-  border: 1px solid rgb(119, 119, 119);
   display: flex;
   grid-area: input;
   justify-content: space-evenly;
@@ -27,12 +29,13 @@ html , body {
 }
 
 .nickname-section input {
+  border: 1px solid rgb(221, 220, 220);
+  border-radius: 3px;
   height: 75%;
   width: 70%;
 }
 
 .chat-section {
-  border: 1px solid rgb(119, 119, 119);
   display: flex;
   flex-direction: column;
   grid-area: chat;
@@ -48,14 +51,13 @@ html , body {
 }
 
 .active-members-section {
-  border: 1px solid rgb(119, 119, 119);
   grid-area: members;
+  text-align: left;
 }
 
 
 .send-message-section {
   align-items: center;
-  border: 1px solid rgb(119, 119, 119);
   display: flex;
   grid-area: message;
   justify-content: space-evenly;
@@ -63,12 +65,17 @@ html , body {
 }
 
 .send-message-section textarea {
+  border-radius: 10px;
   height: 75%;
+  outline: none;
+  resize: none;
   width: 70%;
 }
 
 .btn {
   background-color: rgb(1, 173, 1);
+  border: none;
+  border-radius: 10px;
   color: white;
   font-weight: 700;
   height: 75%;
@@ -78,7 +85,6 @@ html , body {
 }
 
 .title {
-  color: rgb(2, 0, 99);
-  font-family: Merienda, cursive;
+  color: rgb(80, 80, 80);
   text-align: center;
 }
