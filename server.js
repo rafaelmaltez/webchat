@@ -2,6 +2,8 @@ const express = require('express');
 const randomstring = require('randomstring');
 const moment = require('moment');
 
+moment.locale('pt-br');
+
 const app = express();
 const http = require('http').createServer(app);
 const cors = require('cors');
@@ -17,10 +19,11 @@ io.on('connection', (socket) => {
   const randomNickName = randomstring.generate(16);
   socket.emit('nickname', randomNickName);
   socket.on('message', (message) => {
-    const date = moment();
-    const DDMMYYY = `${date.date()}/${date.month()}/${date.year()}`;
-    const HHMMSS = `${date.hour()}:${date.minutes()}:${date.seconds()}`;
-    const formattedMessage = `${DDMMYYY} ${HHMMSS} ${message.nickname} ${message.chatMessage}`;
+    const date = moment().format('L');
+    const time = moment().format('LTS');
+    // const DDMMYYY = `${date.date()}/${date.month()}/${date.year()}`;
+    // const HHMMSS = `${date.hour()}:${date.minutes()}:${date.seconds()}`;
+    const formattedMessage = `${date} ${time} ${message.nickname} ${message.chatMessage}`;
     io.emit('message', formattedMessage);
   });
 });
