@@ -1,0 +1,69 @@
+html , body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  color: rgb(2, 0, 99);
+  text-align: center;
+}
+
+.web-chat {
+  display: grid;
+  grid-template-areas: 'input chat chat'
+    'members chat chat'
+    'members chat chat'
+    'members chat chat'
+    'message message message';
+  height: 90vh;
+  margin: 30px auto;
+  max-width: 70%;
+}
+
+.nickname-section {
+  align-items: center;
+  border: 1px solid rgb(119, 119, 119);
+  display: flex;
+  grid-area: input;
+  justify-content: space-evenly;
+  padding: 1rem;
+}
+
+.nickname-section input {
+  height: 50%;
+  width: 70%;
+}
+
+.chat-section {
+  border: 1px solid rgb(119, 119, 119);
+  grid-area: chat;
+}
+
+.active-members-section {
+  border: 1px solid rgb(119, 119, 119);
+  grid-area: members;
+}
+
+.send-message-section {
+  align-items: center;
+  border: 1px solid rgb(119, 119, 119);
+  display: flex;
+  grid-area: message;
+  justify-content: space-evenly;
+  padding: 1rem;
+}
+
+.send-message-section textarea {
+  height: 20%;
+  width: 70%;
+}
+
+.btn {
+  background-color: rgb(1, 173, 1);
+  color: white;
+  font-weight: 700;
+  padding: 20px 30px;
+  text-transform: uppercase;
+  width: 20%;
+}
