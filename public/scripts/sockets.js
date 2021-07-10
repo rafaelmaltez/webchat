@@ -21,7 +21,12 @@ socket.on('message', (message) => {
 
 socket.on('members', (activeMembers) => {
   membersSection.innerHTML = '';
-  activeMembers.forEach((member) => {
+  const membersList = [];
+  const user = activeMembers.find((usr) => usr.nickname === nickname);
+  membersList.push(user);
+  const filteredActiveMembers = activeMembers.filter((member) => member.nickname !== nickname);
+  filteredActiveMembers.forEach((member) => membersList.push(member));
+  membersList.forEach((member) => {
     const li = document.createElement('li');
     li.setAttribute('data-testid', 'online-user');
     li.innerHTML = member.nickname;

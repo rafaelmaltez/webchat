@@ -1,7 +1,6 @@
 const express = require('express');
 const randomstring = require('randomstring');
 const moment = require('moment');
-const MessageModel = require('./models/messageModel');
 
 moment.locale('pt-br');
 
@@ -15,6 +14,7 @@ const io = require('socket.io')(http, {
     methods: ['GET', 'POST'],
   },
 });
+const MessageModel = require('./models/messageModel');
 
 let activeMembers = [];
 
@@ -38,7 +38,6 @@ io.on('connection', (socket) => {
   io.emit('members', activeMembers);
   socket.on('message', getMessage);
   socket.on('updateNickname', (newNickname) => {
-    console.log('updated nickname server');
     activeMembers = activeMembers.map((member) => {
       if (member.id === socket.id) { return { id: socket.id, nickname: newNickname }; }
       return member;
