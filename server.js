@@ -15,14 +15,26 @@ const io = require('socket.io')(http, {
   },
 });
 
+let activeMembers = [];
+
 io.on('connection', (socket) => {
   const randomNickName = randomstring.generate(16);
+  activeMembers.push({ id: socket.id, nickname: randomNickName });
   socket.emit('nickname', randomNickName);
+  io.emit('members', activeMembers);
   socket.on('message', (message) => {
     const date = moment().format('L').replace(/\//g, '-');
     const time = moment().format('LTS');
     const formattedMessage = `${date} ${time} ${message.nickname} ${message.chatMessage}`;
     io.emit('message', formattedMessage);
+  });
+  socket.on('updateNickname', (newNickname) => {
+    console.log('updated nickname server');
+    activeMembers = activeMembers.map((member) => {
+      if (member.id === socket.id) { return { id: socket.id, nickname: newNickname }; }
+      return member;
+    });
+    io.emit('members', activeMembers);
   });
 });
 
@@ -34,7 +46,7 @@ app.set('views', './public');
 app.use(express.static(`${__dirname}/public`));
 
 app.get('/', (_req, res) => {
-  res.render('index.html');
+  res.render('pages/index', { activeMembers });
 });
 
 const PORT = 3000;

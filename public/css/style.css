@@ -17,7 +17,7 @@ html , body {
   grid-template-rows: 10% 25% 25% 25% 15%;
   height: 80vh;
   margin: 30px auto;
-  max-width: 70%;
+  max-width: 90%;
 }
 
 .nickname-section {
@@ -40,14 +40,16 @@ html , body {
   flex-direction: column;
   grid-area: chat;
   justify-content: flex-start;
+  overflow-y: scroll;
   padding: 2%;
+  scroll-behavior: smooth;
 }
 
 .chat-section p {
   background-color: rgb(170, 170, 170);
   border-radius: 7px;
-  padding: 10px;
-  width: 90%;
+  padding: 10px 5px;
+  width: 95%;
 }
 
 .active-members-section {
