@@ -41,7 +41,6 @@ io.on('connection', (socket) => {
   });
 });
 
-
 app.use(cors());
 app.engine('html', require('ejs').renderFile);
 
