@@ -36,7 +36,6 @@ io.on('connection', (socket) => {
       if (member.id === socket.id) { return { id: socket.id, nickname: newNickname }; }
       return member;
     });
-    socket.emit('nickname', newNickname);
     io.emit('members', activeMembers);
   });
 });

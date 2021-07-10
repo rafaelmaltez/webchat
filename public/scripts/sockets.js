@@ -41,5 +41,6 @@ sendButton.addEventListener('click', () => {
 
 nicknameButton.addEventListener('click', () => {
   const newNickname = nicknameBox.value;
+  nickname = newNickname;
   socket.emit('updateNickname', newNickname);
 });
