@@ -10,7 +10,7 @@ const cors = require('cors');
 
 const io = require('socket.io')(http, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST'],
   },
 });
@@ -30,7 +30,7 @@ app.use(cors());
 app.engine('html', require('ejs').renderFile);
 
 app.set('view engine', 'html');
-app.set('views', './views');
+app.set('views', './public');
 app.use(express.static(`${__dirname}/public`));
 
 app.get('/', (_req, res) => {
