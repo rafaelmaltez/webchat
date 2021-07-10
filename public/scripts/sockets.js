@@ -1,3 +1,4 @@
+
 const socket = window.io();
 let nickname = '';
 const chatBoard = document.querySelector('.chat-section');
@@ -28,7 +29,9 @@ socket.on('members', (activeMembers) => {
   filteredActiveMembers.forEach((member) => membersList.push(member));
   membersList.forEach((member) => {
     const li = document.createElement('li');
-    li.setAttribute('data-testid', 'online-user');
+    // if (member.nickname === nickname) {
+      li.setAttribute('data-testid', 'online-user');
+    // }
     li.innerHTML = member.nickname;
     membersSection.appendChild(li);
   });
@@ -49,3 +52,7 @@ nicknameButton.addEventListener('click', () => {
   nickname = newNickname;
   socket.emit('updateNickname', newNickname);
 });
+
+window.onbeforeunload = (_event) => {
+  socket.disconnect();
+};

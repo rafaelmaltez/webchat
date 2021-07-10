@@ -32,7 +32,8 @@ const getMessage = async (message) => {
 };
 
 io.on('connection', (socket) => {
-  const randomNickName = randomstring.generate(16);
+  console.log('conectou')
+  const randomNickName = randomstring.generate({ length: 16, charset: 'alphabetic' });
   activeMembers.push({ id: socket.id, nickname: randomNickName });
   socket.emit('nickname', randomNickName);
   io.emit('members', activeMembers);
@@ -42,6 +43,11 @@ io.on('connection', (socket) => {
       if (member.id === socket.id) { return { id: socket.id, nickname: newNickname }; }
       return member;
     });
+    io.emit('members', activeMembers);
+  });
+  socket.on('disconnect', () => {
+    activeMembers = activeMembers
+    .filter((member) => member.id !== socket.id);
     io.emit('members', activeMembers);
   });
 });
@@ -55,7 +61,6 @@ app.use(express.static(`${__dirname}/public`));
 
 app.get('/', async (_req, res) => {
   const messages = await MessageModel.getAll();
-  console.log('messages');
   res.render('pages/index', { messages });
 });
 
