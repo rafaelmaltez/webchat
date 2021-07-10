@@ -1,7 +1,7 @@
 const socket = window.io();
 let nickname = '';
 const chatBoard = document.querySelector('.chat-section');
-const membersSection = document.querySelector('.active-members-section');
+const membersSection = document.querySelector('.active-members-section ul');
 const sendButton = document.querySelector('.send-button');
 const messageBox = document.querySelector('.message-box');
 const nicknameButton = document.querySelector('.nickname-button');
