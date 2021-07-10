@@ -1,6 +1,7 @@
 const express = require('express');
 const randomstring = require('randomstring');
 const moment = require('moment');
+const MessageModel = require('./models/messageModel');
 
 moment.locale('pt-br');
 
@@ -17,11 +18,17 @@ const io = require('socket.io')(http, {
 
 let activeMembers = [];
 
-const getMessage = (message) => {
+const getMessage = async (message) => {
   const date = moment().format('L').replace(/\//g, '-');
   const time = moment().format('LTS');
   const formattedMessage = `${date} ${time} ${message.nickname} ${message.chatMessage}`;
+  const dbMessage = {
+    message: message.chatMessage,
+    nickname: message.nickname,
+    timestamps: `${date} ${time}`,
+  };
   io.emit('message', formattedMessage);
+  await MessageModel.create(dbMessage);
 };
 
 io.on('connection', (socket) => {
@@ -47,8 +54,10 @@ app.set('view engine', 'html');
 app.set('views', './public');
 app.use(express.static(`${__dirname}/public`));
 
-app.get('/', (_req, res) => {
-  res.render('pages/index', { activeMembers });
+app.get('/', async (_req, res) => {
+  const messages = await MessageModel.getAll();
+  console.log('messages');
+  res.render('pages/index', { messages });
 });
 
 const PORT = 3000;

@@ -21,6 +21,9 @@
     </section>
     <section class="chat-section">
       <h3 class="title">Histórico de mensagens</h3>
+        <% messages.forEach((msg) => { %>
+          <p data-testid="message"><%= ` ${msg.timestamps} ${msg.nickname} ${msg.message}` %></p>
+        <% }) %>
     </section>
     <section class="active-members-section">
       <h3 class ="title">Membros online agora:</h3>
