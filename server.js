@@ -32,7 +32,7 @@ const getMessage = async (message) => {
 };
 
 io.on('connection', (socket) => {
-  console.log('conectou')
+  console.log('conectou');
   const randomNickName = randomstring.generate({ length: 16, charset: 'alphabetic' });
   activeMembers.push({ id: socket.id, nickname: randomNickName });
   socket.emit('nickname', randomNickName);

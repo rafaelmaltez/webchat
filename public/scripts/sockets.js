@@ -1,4 +1,3 @@
-
 const socket = window.io();
 let nickname = '';
 const chatBoard = document.querySelector('.chat-section');
