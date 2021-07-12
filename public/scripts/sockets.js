@@ -7,19 +7,16 @@ const messageBox = document.querySelector('.message-box');
 const nicknameButton = document.querySelector('.nickname-button');
 const nicknameBox = document.querySelector('.nickname-box');
 
-socket.on('nickname', (randomNickname) => {
-  nickname = randomNickname;
-});
+const setNickName = (nickName) => { nickname = nickName; };
 
-socket.on('message', (message) => {
-  console.log('mensagem chegou no cliente: ', message);
+const renderMessage = (message) => {
   const paragraph = document.createElement('p');
   paragraph.setAttribute('data-testid', 'message');
   paragraph.innerHTML = message;
   chatBoard.appendChild(paragraph);
-});
+};
 
-socket.on('members', (activeMembers) => {
+const updateActiveMembers = (activeMembers) => {
   membersSection.innerHTML = '';
   const membersList = [];
   const user = activeMembers.find((usr) => usr.nickname === nickname);
@@ -28,15 +25,13 @@ socket.on('members', (activeMembers) => {
   filteredActiveMembers.forEach((member) => membersList.push(member));
   membersList.forEach((member) => {
     const li = document.createElement('li');
-    // if (member.nickname === nickname) {
       li.setAttribute('data-testid', 'online-user');
-    // }
     li.innerHTML = member.nickname;
     membersSection.appendChild(li);
   });
-});
+};
 
-sendButton.addEventListener('click', () => {
+const emitMessage = () => {
   const chatMessage = messageBox.value;
   const message = {
     chatMessage,
@@ -44,13 +39,23 @@ sendButton.addEventListener('click', () => {
   };
   socket.emit('message', message);
   messageBox.value = '';
-});
+};
 
-nicknameButton.addEventListener('click', () => {
+const changeNickname = () => {
   const newNickname = nicknameBox.value;
   nickname = newNickname;
   socket.emit('updateNickname', newNickname);
-});
+};
+
+socket.on('nickname', setNickName);
+
+socket.on('message', renderMessage);
+
+socket.on('members', updateActiveMembers);
+
+sendButton.addEventListener('click', emitMessage);
+
+nicknameButton.addEventListener('click', changeNickname);
 
 window.onbeforeunload = (_event) => {
   socket.disconnect();
